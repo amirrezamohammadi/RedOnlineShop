@@ -3,10 +3,6 @@ a {
   color: #0366d6;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 code {
   color: #E01A76;
 }
@@ -16,4 +12,58 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.red-icon-style{
+  color: #FF3333;
+  font-family: 'Dancing Script';
+  font-size: 22px;
+}
+html{
+  scroll-behavior: smooth;
+}
+.red-icon-style{
+    color: #FF3333;
+    font-family: 'Dancing Script';
+    font-size: 22px;
+}
+#menu-toggle:checked+#menu {
+    display: block;
+}
+.accordion {
+    background-color: white;
+    /* border: 1px solid #f87171; */
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    /* border: none; */
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  
+  .active, .accordion:hover {
+    /* background-color: #ccc; */
+    color: red;
+  }
+  
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-radius: 10px;
+  }
+  .category {
+    /* border-2 px-4 py-1 border-[#ff3333] rounded-full */
+    border: 2px solid #FF3333;
+    padding: 4px 16px;
+    border-radius: 50px;
+}
+.active-category, .category:hover {
+    /* active:bg-[#ff3333] active:text-white */
+    background-color: #FF3333;
+    color: white;
+}
