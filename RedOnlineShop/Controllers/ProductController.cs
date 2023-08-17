@@ -9,27 +9,28 @@ using RedOnlineShop.Models;
 
 namespace RedOnlineShop.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        //private readonly OnlineShopContext _context;
+        private readonly OnlineShopContext _context;
 
-        //public ProductController(OnlineShopContext context)
-        //{
-        //    _context = context;
-        //}
+        public ProductController(OnlineShopContext context)
+        {
+            _context = context;
+        }
 
-        //// GET: api/Product
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        //{
-        //  if (_context.Products == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    return await _context.Products.ToListAsync();
-        //}
+        // GET: api/Product
+        [HttpGet]
+        [Route("api/getAllProduct")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.ToListAsync();
+        }
 
         //// GET: api/Product/5
         //[HttpGet("{id}")]
