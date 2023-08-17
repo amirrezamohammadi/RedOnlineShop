@@ -17,7 +17,7 @@ public partial class Product
 
     public byte[]? Image { get; set; }
 
-    public string? ProductStatus { get; set; }
+    public int? Price { get; set; }
 
     public DateOnly? CreatedDate { get; set; }
 

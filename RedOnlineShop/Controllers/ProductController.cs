@@ -32,6 +32,17 @@ namespace RedOnlineShop.Controllers
             return await _context.Products.ToListAsync();
         }
 
+        [HttpGet]
+        [Route("api/getNewProduct")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetNewProduct()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.TagRef == 1).ToListAsync();
+        }
+
         //// GET: api/Product/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Product>> GetProduct(int id)

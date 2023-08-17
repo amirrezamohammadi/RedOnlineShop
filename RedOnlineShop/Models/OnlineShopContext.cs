@@ -104,7 +104,7 @@ public partial class OnlineShopContext : DbContext
             entity.Property(e => e.CategoryRef).HasColumnType("int(11)");
             entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.Image).HasColumnType("mediumblob");
-            entity.Property(e => e.ProductStatus).HasMaxLength(50);
+            entity.Property(e => e.Price).HasColumnType("int(11)");
             entity.Property(e => e.TagRef).HasColumnType("int(11)");
             entity.Property(e => e.Title).HasMaxLength(50);
 

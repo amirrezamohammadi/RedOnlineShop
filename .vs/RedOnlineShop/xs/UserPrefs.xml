@@ -1,28 +1,36 @@
 ﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default" GitUserInfo="UsingGIT">
-  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Controllers/UserController.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Models/Product.cs">
     <Files>
-      <File FileName="RedOnlineShop/ClientApp/src/setupProxy.js" Line="11" Column="1" />
-      <File FileName="RedOnlineShop/Program.cs" Line="27" Column="22" />
-      <File FileName="RedOnlineShop/appsettings.json" Line="13" Column="2" />
-      <File FileName="RedOnlineShop/Models/OnlineShopContext.cs" Line="19" Column="6" />
-      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" Line="4" Column="15" />
-      <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="68" Column="1" />
+      <File FileName="RedOnlineShop/ClientApp/src/setupProxy.js" />
+      <File FileName="RedOnlineShop/Program.cs" />
+      <File FileName="RedOnlineShop/appsettings.json" />
+      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" />
+      <File FileName="RedOnlineShop/Controllers/UserController.cs" />
+      <File FileName="RedOnlineShop/Controllers/ProductController.cs" />
+      <File FileName="RedOnlineShop/Models/Product.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="RedOnlineShop" expanded="True">
-            <Node name="RedOnlineShop" expanded="True" />
+          <Node name="RedOnlineShop">
+            <Node name="RedOnlineShop" expanded="True">
+              <Node name="ClientApp" expanded="True">
+                <Node name="src" expanded="True" />
+              </Node>
+              <Node name="Models" expanded="True">
+                <Node name="Product.cs" selected="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

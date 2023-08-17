@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {useMutation, useQuery} from 'react-query';
+import axios from 'axios';
+
 import { CustomFooter } from '../components/CustomFooter'
 
  const Home = () => {
+  const [newProductList, getNewProductList] = useState([]);
+
+  const getNewArrivals = useQuery({
+    queryFn: async () => await axios.get('pro/setup/faq'),
+    queryKey: ['getNewArrivals'],
+    onSuccess: res => {
+      console.log(res);
+      //setFAQList(res);
+    },
+  });
   return (
     <div>
       <section className="w-full">
