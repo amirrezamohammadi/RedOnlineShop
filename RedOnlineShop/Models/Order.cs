@@ -13,6 +13,10 @@ public partial class Order
 
     public bool? IsCart { get; set; }
 
+    public string? PostCode { get; set; }
+
+    public string? ShippingAddress { get; set; }
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual User? UserRefNavigation { get; set; }

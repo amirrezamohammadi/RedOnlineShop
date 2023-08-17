@@ -54,9 +54,9 @@ namespace RedOnlineShop.Controllers
             return user;
         }
 
-        [Route("api/getUserByEmail")]
+        [Route("api/login")]
         //[HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser([FromBody] LoginHelper loginData)
+        public async Task<ActionResult<User>> Login([FromBody] LoginHelper loginData)
         {
             var hashPassword = ComputeHash(loginData.Password);
             if (_context.Users == null)

@@ -6,12 +6,9 @@ namespace RedOnlineShop.Models;
 
 public partial class OnlineShopContext : DbContext
 {
-    //private readonly string _connectionString;
-
-    //public OnlineShopContext(string connectionString)
-    //{
-    //    _connectionString = connectionString;
-    //}
+    public OnlineShopContext()
+    {
+    }
 
     public OnlineShopContext(DbContextOptions<OnlineShopContext> options)
         : base(options)
@@ -31,6 +28,7 @@ public partial class OnlineShopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=localhost;user id=amir;password=amir;database=OnlineShop", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.27-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,9 +56,9 @@ public partial class OnlineShopContext : DbContext
 
             entity.HasIndex(e => e.UserRef, "UserRef");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnType("int(11)");
+            entity.Property(e => e.Id).HasColumnType("int(11)");
+            entity.Property(e => e.PostCode).HasMaxLength(10);
+            entity.Property(e => e.ShippingAddress).HasMaxLength(100);
             entity.Property(e => e.UserRef).HasColumnType("int(11)");
 
             entity.HasOne(d => d.UserRefNavigation).WithMany(p => p.Orders)
@@ -101,9 +99,7 @@ public partial class OnlineShopContext : DbContext
 
             entity.HasIndex(e => e.TagRef, "TagRef");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnType("int(11)");
+            entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.Brand).HasMaxLength(50);
             entity.Property(e => e.CategoryRef).HasColumnType("int(11)");
             entity.Property(e => e.Description).HasMaxLength(200);
@@ -138,13 +134,12 @@ public partial class OnlineShopContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnType("int(11)");
+            entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.HashPassword).HasMaxLength(100);
             entity.Property(e => e.LastName).HasMaxLength(50);
+            entity.Property(e => e.Role).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);
