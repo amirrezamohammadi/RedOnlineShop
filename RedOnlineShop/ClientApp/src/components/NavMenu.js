@@ -6,12 +6,13 @@ import './NavMenu.css';
 import { useAuth } from '../hooks/useAuth';
 
 const NavMenu = () =>  {
-  //const {state} =useAuth()
-  const [isCollapsed,setIsCollapsed] = useState(true)
 
+  const [isCollapsed,setIsCollapsed] = useState(true);
+  const fullName = localStorage.getItem("fullName");
+  
   const toggleNavbar =()=> {
     setIsCollapsed(!isCollapsed)
-  }
+  };
 
     return (
       <header>
@@ -34,15 +35,20 @@ const NavMenu = () =>  {
               <NavItem>
                 <NavLink tag={Link} className="text-light" to="/about-us">About Us</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-light" to="/signup">Signup</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-light" to="/forget-password">Forget Password</NavLink>
-              </NavItem>
+              {!fullName?(
+                <>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-light" to="/signup">Signup</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-light" to="/forget-password">Forget Password</NavLink>
+                  </NavItem>
+                </>
+              ):( <span>{fullName}</span>)}
+              
             </ul>
           </Collapse>
           {/* {!state.isLogin?(

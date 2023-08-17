@@ -1,6 +1,51 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useMutation } from 'react-query';
+import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
+
+const {login} = useAuth()
+const [email, setEmail] = useState(null);
+const [password, setPassword] = useState(null)
+const [isCredentalsWrong , setIsCredentalsWrong] = useState(false)
+
+
+const userLogin = useMutation({
+  
+  mutationKey:"login",
+  mutationFn:()=>{
+    
+    setIsCredentalsWrong(false);
+    let data={
+      email:email,
+      password:password
+    };
+    return(axios.post("/login",data))
+    
+  },
+
+  onSuccess:(data)=> login(data),
+  onError:()=> setIsCredentalsWrong(true)}
+)
+
+  const onChange = event =>{
+
+    if (event.name === 'email') {
+      setEmail(event.value)
+    } else {
+      setPassword(event.value)
+    }
+
+  }
+  const  onSubmit =(event) =>{
+    userLogin.mutate();
+    event.preventDefault();
+
+  }
+
+
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -17,7 +62,7 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="./src/screens/homepage/homepage.html" method="GET">
+        <form className="space-y-6" action='./' method='POST' onSubmit={(e)=>onSubmit(e)}>
           <div>
             <label
               for="email"
@@ -30,8 +75,10 @@ const Login = () => {
                 name="email"
                 type="email"
                 autocomplete="email"
+                value= {email}            
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border border-gray-300 shadow-sm px-1 py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -57,8 +104,10 @@ const Login = () => {
                 name="password"
                 type="password"
                 autocomplete="current-password"
+                value={password}
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 px-1 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
