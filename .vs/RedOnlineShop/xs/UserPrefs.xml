@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default">
-  <MonoDevelop.Ide.ItemProperties.RedOnlineShop FirstBuild="True" />
+﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MultiItemStartupConfigurations />
 </Properties>
