@@ -1,47 +1,58 @@
-import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+
 import './NavMenu.css';
+import { useAuth } from '../hooks/useAuth';
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+const NavMenu = () =>  {
+  //const {state} =useAuth()
+  const [isCollapsed,setIsCollapsed] = useState(true)
 
-  constructor (props) {
-    super(props);
-
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
+  const toggleNavbar =()=> {
+    setIsCollapsed(!isCollapsed)
   }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
-
-  render() {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">RedOnlineShop</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm bg-gray-800 border-bottom box-shadow mb-3" container light>
+          <NavbarBrand tag={Link} to="/">
+            <img className="w-10 h-10" src={require("../assets/RedLogo.png")} alt="" />
+          </NavbarBrand>
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!isCollapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} className="text-light" to="/">Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                <NavLink tag={Link} className="text-light" to="/product">Product</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                <NavLink tag={Link} className="text-light" to="/contact-us">Contact Us</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/about-us">About Us</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/signup">Signup</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-light" to="/forget-password">Forget Password</NavLink>
               </NavItem>
             </ul>
           </Collapse>
+          {/* {!state.isLogin?(
+          <>
+
+            </>):null} */}
         </Navbar>
       </header>
     );
-  }
+  
 }
+
+export  {NavMenu};
