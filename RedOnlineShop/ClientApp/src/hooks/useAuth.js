@@ -3,6 +3,7 @@ import {useQuery} from 'react-query';
 import React, {createContext, useContext, useMemo, useState} from 'react';
 
 import { api } from '../utils/api';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const AuthCtx = createContext({});
 
@@ -20,10 +21,11 @@ const AuthProvider = ({children}) => {
 };
 
 const useAuth = () => {
+  const navigate = useNavigate()
   const {state, setState} = useContext(AuthCtx);
   const {data: userInfo, refetch: refetchUser} = useQuery(
     'user',
-    () => axios.get('https://beautiverse.ca/api/beautiverse/user'),
+    () => axios.get(`/getUserById/${localStorage.getItem('accessToken')}`),
     {
       onSuccess: () => {
         setState({...state, isLoading: false, isLogin: true});
@@ -34,11 +36,13 @@ const useAuth = () => {
     },
   );
   
-  const login = async token => {
+  const login = async id => {
     const username = 'accessToken';
-    localStorage.setItem(username, token);
-    api.setAccessToken(token);
+
+    localStorage.setItem(username, id);
+    api.setAccessToken(id);
     setState({...state, isLoading: true, isLogin: true});
+    navigate('/')
   };
 
   const checkUser = async () => {

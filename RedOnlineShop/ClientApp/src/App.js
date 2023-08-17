@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 
 import './custom.css';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import { AuthProvider, useAuth } from './hooks/useAuth';
+import { api } from './utils/api';
+
+api.init();
+const client = new QueryClient({defaultOptions: {queries: {retry: 2}}});
 
 const App =()=> {
 
-//  const {state} =useAuth()
+ 
   const [appRoutes,setAppRoutes] = useState(AppRoutes)
 
   // useEffect(() => {
@@ -23,17 +29,19 @@ const App =()=> {
   // }, [state.isLogin])
   
 
-    return (
-      <Layout>
+    return ( 
+      <QueryClientProvider client={client}>
         <AuthProvider>
-          <Routes>
-            {appRoutes.map((route, index) => {
-              const { element, ...rest } = route;
-              return <Route key={index} {...rest} element={element} />;
-            })}
-          </Routes>
+          <Layout>
+            <Routes>
+              {appRoutes.map((route, index) => {
+                const { element, ...rest } = route;
+                return <Route key={index} {...rest} element={element} />;
+              })}
+            </Routes>
+        </Layout>
         </AuthProvider>
-      </Layout>
+      </QueryClientProvider>
     );
   
 }
