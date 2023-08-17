@@ -36,11 +36,11 @@ const useAuth = () => {
     },
   );
   
-  const login = async id => {
-    const username = 'accessToken';
+  const login = async data => {
 
-    localStorage.setItem(username, id);
-    api.setAccessToken(id);
+    localStorage.setItem("accessToken", data.id);
+    localStorage.setItem("fullName", data.firstName + ' ' + data.lastName);
+    api.setAccessToken(data.id);
     setState({...state, isLoading: true, isLogin: true});
     navigate('/')
   };

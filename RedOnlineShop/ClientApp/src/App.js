@@ -17,16 +17,16 @@ const App =()=> {
  
   const [appRoutes,setAppRoutes] = useState(AppRoutes)
 
-  // useEffect(() => {
-  //   if (state.isLogin){
-  //     let tempRoutes = appRoutes;
-  //     tempRoutes.filter(item=> item.path!== '/signup' || item.path!== '/forget-password' || item.path!=='/login');
-  //     setAppRoutes(tempRoutes)
-  //   }
-  //   else{
-  //     setAppRoutes(AppRoutes)
-  //   }
-  // }, [state.isLogin])
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")){
+      let tempRoutes = appRoutes;
+      tempRoutes.filter(item=> item.path!== '/signup' || item.path!== '/forget-password' || item.path!=='/login');
+      setAppRoutes(tempRoutes)
+    }
+    else{
+      setAppRoutes(AppRoutes)
+    }
+  }, [])
   
 
     return ( 
