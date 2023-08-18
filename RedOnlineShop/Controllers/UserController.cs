@@ -4,11 +4,17 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MimeKit.Text;
 using RedOnlineShop.Controllers.Helpers;
 using RedOnlineShop.Models;
+using MailKit.Net.Smtp;
+
+
 
 namespace RedOnlineShop.Controllers
 {
@@ -129,6 +135,7 @@ namespace RedOnlineShop.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                Send(SignupUser.Email);
             }
             catch (DbUpdateException)
             {
@@ -175,6 +182,25 @@ namespace RedOnlineShop.Controllers
             {
                 byte[] hashValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(s));
                 return Convert.ToHexString(hashValue);
+            }
+        }
+        static void Send(string to)
+        {
+            // create email message
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("kirsten.corkery@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse(to));
+            email.Subject = "Red Shop Account";
+            email.Body = new TextPart(TextFormat.Plain) { Text = "Welcome to the RedShop! Your account created successfully" };
+
+            // send email
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate("kirsten.corkery@ethereal.email", "b5bS2afdxDqFvrygEF");
+                client.Send(email);
+                client.Disconnect(true);
             }
         }
     }
