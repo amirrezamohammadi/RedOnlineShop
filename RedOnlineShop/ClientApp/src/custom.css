@@ -66,4 +66,5 @@ html{
     /* active:bg-[#ff3333] active:text-white */
     background-color: #FF3333;
     color: white;
+    cursor: pointer;
 }

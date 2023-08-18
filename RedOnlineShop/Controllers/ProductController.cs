@@ -32,6 +32,24 @@ namespace RedOnlineShop.Controllers
             return await _context.Products.ToListAsync();
         }
 
+        //[HttpGet("{id}")]
+        [Route("api/getAllProduct/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(int categoryId)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.CategoryRef == categoryId).ToListAsync();
+
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return product;
+        }
+
         [HttpGet]
         [Route("api/getNewProduct")]
         public async Task<ActionResult<IEnumerable<Product>>> GetNewProduct()
@@ -43,23 +61,24 @@ namespace RedOnlineShop.Controllers
             return await _context.Products.Where(p => p.TagRef == 1).ToListAsync();
         }
 
-        //// GET: api/Product/5
+        // GET: api/Product/5
         //[HttpGet("{id}")]
-        //public async Task<ActionResult<Product>> GetProduct(int id)
-        //{
-        //  if (_context.Products == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    var product = await _context.Products.FindAsync(id);
+        [Route("api/getProduct/{id}")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            var product = await _context.Products.FindAsync(id);
 
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (product == null)
+            {
+                return NotFound();
+            }
 
-        //    return product;
-        //}
+            return product;
+        }
 
         //// PUT: api/Product/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

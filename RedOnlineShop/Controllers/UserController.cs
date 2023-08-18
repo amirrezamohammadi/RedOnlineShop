@@ -63,7 +63,7 @@ namespace RedOnlineShop.Controllers
             {
                 return NotFound();
             }
-            var user = _context.Users.FirstOrDefault(p => p.Email == loginData.Email && p.HashPassword==hashPassword);
+            var user = await _context.Users.FirstOrDefaultAsync(p => p.Email == loginData.Email && p.HashPassword==hashPassword);
 
             if (user == null)
             {
