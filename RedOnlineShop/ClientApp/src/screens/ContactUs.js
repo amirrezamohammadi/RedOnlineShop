@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { CustomFooter } from '../components/CustomFooter'
 
  const ContactUs = () => {
@@ -13,7 +14,9 @@ import { CustomFooter } from '../components/CustomFooter'
               odit saepe veniam eveniet qui, alias deserunt laboriosam magni ducimus
               iste neque aliquid eum libero tempore numquam iure omnis earum.
             </h5>
-            <div id="googleMap" className="w-full h-[400px]"></div>
+            <div id="googleMap" className="w-full h-[400px]">
+
+            </div>
             <div className="w-full mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
               <div className="h-60 flex flex-col justify-between">
                 <div className="flex">
