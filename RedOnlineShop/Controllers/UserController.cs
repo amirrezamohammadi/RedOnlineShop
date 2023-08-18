@@ -104,34 +104,46 @@ namespace RedOnlineShop.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/User
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-        //  if (_context.Users == null)
-        //  {
-        //      return Problem("Entity set 'OnlineShopContext.Users'  is null.");
-        //  }
-        //    _context.Users.Add(user);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (UserExists(user.Id))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        // POST: api/User
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [Route("api/signup")]
+        public async Task<ActionResult<User>> PostUser([FromBody] SignupHelper user)
+        {
+            var SignupUser = new User();
+            var hashPassword = ComputeHash(user.Password);
 
-        //    return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        //}
+            SignupUser.FirstName = user.FirstName;
+            SignupUser.LastName = user.LastName;
+            SignupUser.Email = user.Email;
+            SignupUser.Role = user.Role;
+            SignupUser.HashPassword = hashPassword;
+
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'OnlineShopContext.Users'  is null.");
+            }
+           
+
+            _context.Users.Add(SignupUser);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UserExists(SignupUser.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetUser", new { id = SignupUser.Id }, SignupUser);
+        }
 
         //// DELETE: api/User/5
         //[HttpDelete("{id}")]
@@ -153,10 +165,10 @@ namespace RedOnlineShop.Controllers
         //    return NoContent();
         //}
 
-        //private bool UserExists(int id)
-        //{
-        //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        //}
+        private bool UserExists(int id)
+        {
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
         static string ComputeHash(string s)
         {
             using (SHA256 sha256 = SHA256.Create())
