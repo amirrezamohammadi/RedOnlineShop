@@ -135,7 +135,6 @@ namespace RedOnlineShop.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                Send(SignupUser.Email);
             }
             catch (DbUpdateException)
             {
@@ -149,6 +148,7 @@ namespace RedOnlineShop.Controllers
                 }
             }
 
+            Send(SignupUser.Email);
             return CreatedAtAction("GetUser", new { id = SignupUser.Id }, SignupUser);
         }
 
@@ -184,22 +184,29 @@ namespace RedOnlineShop.Controllers
                 return Convert.ToHexString(hashValue);
             }
         }
+
         static void Send(string to)
         {
+            var emailSetting = new EmailSetting();
+            var builder = WebApplication.CreateBuilder();
+            builder.Configuration.GetSection("EmailSetting").Bind(emailSetting);
+
+
             // create email message
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("kirsten.corkery@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse(to));
-            email.Subject = "Red Shop Account";
-            email.Body = new TextPart(TextFormat.Plain) { Text = "Welcome to the RedShop! Your account created successfully" };
+            var message= new MimeMessage();
+            message.From.Add(MailboxAddress.Parse(emailSetting.Email));
+            message.To.Add(MailboxAddress.Parse(to));
+            message.Subject = "Red Shop Account";
+            message.Body = new TextPart(TextFormat.Plain) { Text = "Welcome to the RedShop! Your account created successfully" };
 
             // send email
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+                client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate("kirsten.corkery@ethereal.email", "b5bS2afdxDqFvrygEF");
-                client.Send(email);
+                
+                client.Authenticate(emailSetting.Email, emailSetting.AppPass);
+                client.Send(message);
                 client.Disconnect(true);
             }
         }
