@@ -1,36 +1,32 @@
-﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default" GitUserInfo="UsingGIT">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
+﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Models/Product.cs">
+  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Controllers/UserController.cs">
     <Files>
-      <File FileName="RedOnlineShop/ClientApp/src/setupProxy.js" />
-      <File FileName="RedOnlineShop/Program.cs" />
-      <File FileName="RedOnlineShop/appsettings.json" />
-      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" />
-      <File FileName="RedOnlineShop/Controllers/UserController.cs" />
-      <File FileName="RedOnlineShop/Controllers/ProductController.cs" />
-      <File FileName="RedOnlineShop/Models/Product.cs" Line="1" Column="1" />
+      <File FileName="RedOnlineShop/Models/User.cs" Line="10" Column="20" />
+      <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="199" Column="90" />
+      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper (copy).cs" Line="15" Column="22" />
+      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" Line="1" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RedOnlineShop">
-            <Node name="RedOnlineShop" expanded="True">
-              <Node name="ClientApp" expanded="True">
-                <Node name="src" expanded="True" />
+            <Node name="RedOnlineShop">
+              <Node name="Controllers">
+                <Node name="Helpers" expanded="True" />
+                <Node name="UserController.cs" selected="True" />
               </Node>
-              <Node name="Models" expanded="True">
-                <Node name="Product.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
 </Properties>
