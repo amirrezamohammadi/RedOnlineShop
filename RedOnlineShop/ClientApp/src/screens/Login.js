@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
 
-const {login} = useAuth()
+const {login} = useAuth();
+const navigate = useNavigate();
 const [email, setEmail] = useState(null);
-const [password, setPassword] = useState(null)
-const [isCredentalsWrong , setIsCredentalsWrong] = useState(false)
+const [password, setPassword] = useState(null);
+const [isCredentalsWrong , setIsCredentalsWrong] = useState(false);
 
 
 const userLogin = useMutation({
@@ -25,7 +28,7 @@ const userLogin = useMutation({
     
   },
 
-  onSuccess:(data)=> login(data),
+  onSuccess:(data)=> {login(data); navigate('/'); navigate(0)},
   onError:()=> setIsCredentalsWrong(true)}
 )
 
@@ -38,8 +41,9 @@ const userLogin = useMutation({
     }
 
   }
-  const  onSubmit =(event) =>{
+  const  onSubmit =  (event) =>{
     userLogin.mutate();
+
     event.preventDefault();
 
   }
@@ -126,7 +130,7 @@ const userLogin = useMutation({
           Not a member?
           <a
             href="./signup"
-            className="font-semibold leading-6 text-[#FF3333]"
+            className="font-semibold mx-1 leading-6 text-[#FF3333]"
             >Sign Up!</a
           >
         </p>

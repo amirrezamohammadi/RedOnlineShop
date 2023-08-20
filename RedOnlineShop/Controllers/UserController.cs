@@ -4,11 +4,17 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MimeKit.Text;
 using RedOnlineShop.Controllers.Helpers;
 using RedOnlineShop.Models;
+using MailKit.Net.Smtp;
+
+
 
 namespace RedOnlineShop.Controllers
 {
@@ -104,34 +110,47 @@ namespace RedOnlineShop.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/User
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-        //  if (_context.Users == null)
-        //  {
-        //      return Problem("Entity set 'OnlineShopContext.Users'  is null.");
-        //  }
-        //    _context.Users.Add(user);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (UserExists(user.Id))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        // POST: api/User
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [Route("api/signup")]
+        public async Task<ActionResult<User>> PostUser([FromBody] SignupHelper user)
+        {
+            var SignupUser = new User();
+            var hashPassword = ComputeHash(user.Password);
 
-        //    return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        //}
+            SignupUser.FirstName = user.FirstName;
+            SignupUser.LastName = user.LastName;
+            SignupUser.Email = user.Email;
+            SignupUser.Role = user.Role;
+            SignupUser.HashPassword = hashPassword;
+
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'OnlineShopContext.Users'  is null.");
+            }
+           
+
+            _context.Users.Add(SignupUser);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UserExists(SignupUser.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            Send(SignupUser.Email);
+            return CreatedAtAction("GetUser", new { id = SignupUser.Id }, SignupUser);
+        }
 
         //// DELETE: api/User/5
         //[HttpDelete("{id}")]
@@ -153,16 +172,42 @@ namespace RedOnlineShop.Controllers
         //    return NoContent();
         //}
 
-        //private bool UserExists(int id)
-        //{
-        //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        //}
+        private bool UserExists(int id)
+        {
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
         static string ComputeHash(string s)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
                 byte[] hashValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(s));
                 return Convert.ToHexString(hashValue);
+            }
+        }
+
+        static void Send(string to)
+        {
+            var emailSetting = new EmailSetting();
+            var builder = WebApplication.CreateBuilder();
+            builder.Configuration.GetSection("EmailSetting").Bind(emailSetting);
+
+
+            // create email message
+            var message= new MimeMessage();
+            message.From.Add(MailboxAddress.Parse(emailSetting.Email));
+            message.To.Add(MailboxAddress.Parse(to));
+            message.Subject = "Red Shop Account";
+            message.Body = new TextPart(TextFormat.Plain) { Text = "Welcome to the RedShop! Your account created successfully" };
+
+            // send email
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                // Note: only needed if the SMTP server requires authentication
+                
+                client.Authenticate(emailSetting.Email, emailSetting.AppPass);
+                client.Send(message);
+                client.Disconnect(true);
             }
         }
     }

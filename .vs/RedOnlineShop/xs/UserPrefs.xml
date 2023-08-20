@@ -6,9 +6,7 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Controllers/ProductController.cs">
     <Files>
-      <File FileName="RedOnlineShop/ClientApp/src/setupProxy.js" />
-      <File FileName="RedOnlineShop/Program.cs" />
-      <File FileName="RedOnlineShop/appsettings.json" />
+      <File FileName="RedOnlineShop/Models/User.cs" />
       <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" />
       <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="74" Column="10" />
       <File FileName="RedOnlineShop/Controllers/ProductController.cs" Line="67" Column="68" />

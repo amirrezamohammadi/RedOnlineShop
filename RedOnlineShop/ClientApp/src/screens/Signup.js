@@ -1,6 +1,53 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+
+  const navigate = useNavigate();
+  const [signupForm, setSignupForm] = useState({firstName:"",lastName:"",email:"",password:null,});
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [isPasswordsSame, setIsPasswordsSame] = useState(true);
+
+  useEffect(() => {
+
+    if ((signupForm.password !== confirmPassword )&& confirmPassword!==null) {
+      setIsPasswordsSame(false)
+    } else {
+      setIsPasswordsSame(true)
+    }
+
+  }, [confirmPassword])
+  
+
+  const userSignup = useMutation({
+  
+    mutationKey:"signup",
+    mutationFn:()=>{
+
+      return(axios.post("/signup",{...signupForm,role:"Customer"}))
+      
+    },
+  
+    onSuccess:(data)=> {alert("Your account Created!"); navigate("../login")},
+    onError:()=> console.log("Error!")}
+  )
+
+
+  const onChange = event =>{
+    let tempform = signupForm;
+    tempform={...tempform,[event.name]:event.value}
+    setSignupForm(tempform)
+
+  }
+  const  onSubmit =  (event) =>{
+    userSignup.mutate();
+
+    event.preventDefault();
+
+  }
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -17,36 +64,40 @@ const Signup = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" method='POST' onSubmit={(e)=>onSubmit(e)}>
           <div>
             <label
-              for="firstname"
+              for="firstName"
               className="block text-sm font-medium leading-6 text-gray-900"
               >First Name</label
             >
             <div className="mt-1">
               <input
-                id="firstname"
-                name="firstname"
+                id="firstName"
+                name="firstName"
                 type="text"
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                value={signupForm.firstName}
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border px-1 border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div>
             <label
-              for="lastname"
+              for="lastName"
               className="block text-sm font-medium leading-6 text-gray-900"
               >Last Name</label
             >
             <div className="mt-1">
               <input
-                id="lastname"
-                name="lastname"
+                id="lastName"
+                name="lastName"
                 type="text"
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                value={signupForm.lastName}
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border px-1 border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -63,7 +114,9 @@ const Signup = () => {
                 type="email"
                 autocomplete="email"
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                value={signupForm.email}
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border px-1 border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -83,27 +136,38 @@ const Signup = () => {
                 type="password"
                 autocomplete="current-password"
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                value={signupForm.password}
+                onChange={(e)=>onChange(e.currentTarget)}
+                className="block w-full rounded-md border px-1 border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div>
             <div className="flex items-center justify-between">
               <label
-                for="confirm-password"
+                for="confirmPassword"
                 className="block text-sm font-medium leading-6 text-gray-900"
                 >Confirm Password</label
               >
             </div>
             <div className="mt-1">
               <input
-                id="confirm-password"
-                name="confirm-password"
+                id="confirmPassword"
+                name="confirmPassword"
                 type="password"
                 autocomplete="current-password"
                 required
-                className="block w-full rounded-md border border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                value={confirmPassword}
+                onChange={(e)=>setConfirmPassword(e.currentTarget.value)}
+                className="block w-full rounded-md border px-1 border-gray-300 shadow-sm py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
               />
+              {
+                !isPasswordsSame?(
+                  <div className='bg-red-100 my-2 p-2 text-red-500 rounded-md'>
+                    Password and Confirm password are not same!
+                  </div>
+                ):null
+              }
             </div>
           </div>
           <div>
