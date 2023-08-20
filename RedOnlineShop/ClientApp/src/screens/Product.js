@@ -36,7 +36,7 @@ const Product = () => {
       <div
         onClick={(event) => {
           event.preventDefault();
-          navigate("/product-detail/#detail", { state: { item } });
+          navigate("/product-detail/#detail", { state: { id: item.id } });
         }}
         className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
       >
@@ -125,7 +125,7 @@ const Product = () => {
         ) : (
           <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
             {productList?.map((item) => (
-              <ProductItem item={item} />
+              <ProductItem key={item.id} item={item} />
             ))}
           </div>
         )}

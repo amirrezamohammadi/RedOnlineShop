@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 
 import { CustomFooter } from "../components/CustomFooter";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [newProductList, getNewProductList] = useState([]);
 
   const getNewArrivals = useQuery({
@@ -20,7 +22,6 @@ const Home = () => {
     return (
       <div key={item.id} className="w-full shadow-md rounded-lg bg-white">
         <img
-          //src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
           src={`data:text/plain;base64,${item.image}`}
           alt="Front of men&#039;s Basic Tee in black."
           className="w-full rounded-t-lg"
@@ -31,8 +32,13 @@ const Home = () => {
             <h6 className="text-lg">&#8356; {item.price}</h6>
           </div>
           <h5 className="text-gray-400">{item.description}</h5>
-          <button className="w-full border !border-[#ff3333] text-[#ff3333] rounded-2xl py-1 mt-2">
-            Add to bag
+          <button
+            onClick={() =>
+              navigate("/product-detail", { state: { id: item.id } })
+            }
+            className="w-full border !border-[#ff3333] text-[#ff3333] rounded-2xl py-1 mt-2"
+          >
+            Add to cart
           </button>
         </div>
       </div>
@@ -63,7 +69,7 @@ const Home = () => {
           </h5>
           <div className="w-4/5 mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {newProductList.map((item) => (
-              <Item item={item} />
+              <Item key={item.id} item={item} />
             ))}
           </div>
         </div>

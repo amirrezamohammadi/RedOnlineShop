@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CustomFooter } from "../components/CustomFooter";
 import { Link } from "react-router-dom";
+import { Alert } from "reactstrap";
 
 const ShoppingCart = () => {
   const [total, setTotal] = useState(0);
@@ -9,10 +10,11 @@ const ShoppingCart = () => {
       ? []
       : JSON.parse(localStorage.getItem("cart"))
   );
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(products));
     var sum = 0;
-    products.map((i) => (sum = sum + i.price));
+    products.map((i) => (sum = sum + i.price * i.amount));
     setTotal(sum);
   }, [products]);
 
@@ -53,7 +55,7 @@ const ShoppingCart = () => {
                 type="button"
                 className="font-medium text-[#ff3333] hover:text-red-500"
               >
-                <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                <i className="fa fa-trash-o fa-2x" aria-hidden="true"></i>
               </button>
             </div>
           </div>
@@ -66,11 +68,17 @@ const ShoppingCart = () => {
       <section className="w-full flex flex-col items-center px-[10%]">
         <div className="w-full grid grid-cols-1 py-20 lg:px-60 divide-y divide-gray-200">
           <h1 className="text-4xl text-center my-6">Shopping Cart</h1>
-          <div role="list" className="divide-y divide-gray-200">
-            {products.map((item) => (
-              <CartItem item={item} />
-            ))}
-          </div>
+          {products.length !== 0 ? (
+            <div role="list" className="divide-y divide-gray-200">
+              {products.map((item) => (
+                <CartItem key={item.id} item={item} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex justify-center py-4">
+              <Alert color="warning">There is no item in the Cart !</Alert>
+            </div>
+          )}
           <div className="border-t border-gray-200 py-6">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
@@ -82,6 +90,9 @@ const ShoppingCart = () => {
             <div className="mt-6">
               <Link
                 to="/checkout"
+                onClick={(event) =>
+                  products.length !== 0 ? {} : event.preventDefault()
+                }
                 className="flex items-center justify-center rounded-md border border-transparent bg-[#ff3333] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-red-700"
               >
                 Checkout
