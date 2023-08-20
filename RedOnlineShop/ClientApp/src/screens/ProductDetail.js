@@ -88,7 +88,8 @@ const ProductDetail = () => {
                 var obj;
                 var cart = JSON.parse(localStorage.getItem("cart"));
                 if (cart === null) {
-                  cart = JSON.parse(localStorage.setItem("cart", "[]"));
+                  JSON.parse(localStorage.setItem("cart", "[]"));
+                  cart = JSON.parse(localStorage.getItem("cart"));
                 }
                 obj = {
                   id: location.state.item.id,
