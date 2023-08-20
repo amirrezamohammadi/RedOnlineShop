@@ -1,32 +1,34 @@
 ﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Controllers/UserController.cs">
     <Files>
-      <File FileName="RedOnlineShop/Models/User.cs" Line="10" Column="20" />
-      <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="199" Column="90" />
-      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper (copy).cs" Line="15" Column="22" />
-      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" Line="1" Column="14" />
+      <File FileName="RedOnlineShop/Models/User.cs" />
+      <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" />
+      <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="193" Column="1" />
+      <File FileName="RedOnlineShop/appsettings.json" Line="3" Column="36" />
+      <File FileName="RedOnlineShop/Models/Order.cs" />
+      <File FileName="RedOnlineShop/Models/Category.cs" />
+      <File FileName="RedOnlineShop/Models/OnlineShopContext.cs" />
+      <File FileName="RedOnlineShop/Models/EmailSetting.cs" Line="8" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RedOnlineShop">
             <Node name="RedOnlineShop">
-              <Node name="Controllers">
-                <Node name="Helpers" expanded="True" />
-                <Node name="UserController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
 </Properties>
