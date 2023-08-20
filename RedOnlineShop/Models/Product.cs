@@ -19,7 +19,11 @@ public partial class Product
 
     public int? Price { get; set; }
 
+    public int? NewPrice { get; set; }
+
     public DateOnly? CreatedDate { get; set; }
+
+    public bool? IsShoes { get; set; }
 
     public string? Description { get; set; }
 

@@ -77,6 +77,7 @@ public partial class OnlineShopContext : DbContext
             entity.Property(e => e.OrderId).HasColumnType("int(11)");
             entity.Property(e => e.ProductId).HasColumnType("int(11)");
             entity.Property(e => e.Amount).HasColumnType("int(11)");
+            entity.Property(e => e.Size).HasMaxLength(10);
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
@@ -104,6 +105,7 @@ public partial class OnlineShopContext : DbContext
             entity.Property(e => e.CategoryRef).HasColumnType("int(11)");
             entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.Image).HasColumnType("mediumblob");
+            entity.Property(e => e.NewPrice).HasColumnType("int(11)");
             entity.Property(e => e.Price).HasColumnType("int(11)");
             entity.Property(e => e.TagRef).HasColumnType("int(11)");
             entity.Property(e => e.Title).HasMaxLength(50);

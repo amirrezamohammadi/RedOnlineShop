@@ -6,8 +6,10 @@ import {
   AboutUs,
   ContactUs,
   Login,
+  ProductDetail,
+  ShoppingCart,
+  Checkout,
 } from "./screens";
-import { ProductDetail } from "./screens";
 
 const AppRoutes = [
   {
@@ -49,6 +51,16 @@ const AppRoutes = [
     index: true,
     path: "/product-detail",
     element: <ProductDetail />,
+  },
+  {
+    index: true,
+    path: "/shopping-cart",
+    element: <ShoppingCart />,
+  },
+  {
+    index: true,
+    path: "/checkout",
+    element: <Checkout />,
   },
 ];
 

@@ -21,7 +21,7 @@ const Product = () => {
         ? await axios.get("getAllProduct/2")
         : active === "Kids"
         ? await axios.get("getAllProduct/3")
-        : await axios.get("getAllProduct"),
+        : await axios.get("getDiscountProduct"),
     queryKey: ["getAllProduct", active],
     onSuccess: (res) => {
       console.log(res);
@@ -36,7 +36,7 @@ const Product = () => {
       <div
         onClick={(event) => {
           event.preventDefault();
-          navigate("/product-detail", { state: { item } });
+          navigate("/product-detail/#detail", { state: { item } });
         }}
         className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
       >
@@ -55,13 +55,15 @@ const Product = () => {
             </p>
             <div className="flex items-center">
               <p className="text-lg font-semibold text-black cursor-auto my-3">
-                &#8356;{item.price}
+                &#8356;{item.newPrice ? item.newPrice : item.price}
               </p>
-              {/* <del>
-                <p className="text-sm text-gray-600 cursor-auto ml-2">
-                  &#8356; 130
-                </p>
-              </del> */}
+              {item.newPrice ? (
+                <del>
+                  <p className="text-sm text-gray-600 cursor-auto ml-2">
+                    &#8356; {item.price}
+                  </p>
+                </del>
+              ) : null}
               <div className="ml-auto">
                 <i
                   className="fa fa-shopping-bag text-lg text-[#333]"
@@ -122,7 +124,7 @@ const Product = () => {
           <Spinner className="text-[#ff3333]" />
         ) : (
           <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-            {productList.map((item) => (
+            {productList?.map((item) => (
               <ProductItem item={item} />
             ))}
           </div>

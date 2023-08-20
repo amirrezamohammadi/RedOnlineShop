@@ -61,6 +61,17 @@ namespace RedOnlineShop.Controllers
             return await _context.Products.Where(p => p.TagRef == 1).ToListAsync();
         }
 
+        [HttpGet]
+        [Route("api/getDiscountProduct")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetDiscountProduct()
+        {
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+            return await _context.Products.Where(p => p.TagRef == 2).ToListAsync();
+        }
+
         // GET: api/Product/5
         //[HttpGet("{id}")]
         [Route("api/getProduct/{id}")]

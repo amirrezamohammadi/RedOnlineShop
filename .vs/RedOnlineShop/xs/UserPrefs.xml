@@ -1,19 +1,17 @@
-﻿<Properties StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default" GitUserInfo="UsingGIT">
+﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{4CE0EF09-23A5-45EC-976E-C0AE23A30155}|Default">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Models/Product.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RedOnlineShop/Controllers/ProductController.cs">
     <Files>
       <File FileName="RedOnlineShop/ClientApp/src/setupProxy.js" />
       <File FileName="RedOnlineShop/Program.cs" />
       <File FileName="RedOnlineShop/appsettings.json" />
       <File FileName="RedOnlineShop/Controllers/Helpers/LoginHelper.cs" />
-      <File FileName="RedOnlineShop/Controllers/UserController.cs" />
-      <File FileName="RedOnlineShop/Controllers/ProductController.cs" />
+      <File FileName="RedOnlineShop/Controllers/UserController.cs" Line="74" Column="10" />
+      <File FileName="RedOnlineShop/Controllers/ProductController.cs" Line="67" Column="68" />
       <File FileName="RedOnlineShop/Models/Product.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -24,13 +22,14 @@
               <Node name="ClientApp" expanded="True">
                 <Node name="src" expanded="True" />
               </Node>
-              <Node name="Models" expanded="True">
-                <Node name="Product.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.RedOnlineShop PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>
