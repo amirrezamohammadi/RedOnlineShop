@@ -38,41 +38,39 @@ const Product = () => {
           event.preventDefault();
           navigate("/product-detail/#detail", { state: { id: item.id } });
         }}
-        className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+        className="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:cursor-pointer"
       >
-        <a href="#">
-          <img
-            src={`data:text/plain;base64,${item.image}`}
-            alt="Product"
-            className="h-80 w-72 object-cover rounded-t-xl"
-          />
-          <div className="px-4 py-3 w-72">
-            <span className="text-gray-400 mr-3 uppercase text-xs">
-              {item.brand}
-            </span>
-            <p className="text-lg font-bold text-black truncate block capitalize">
-              {item.title}
+        <img
+          src={`data:text/plain;base64,${item.image}`}
+          alt="Product"
+          className="h-80 w-72 object-cover rounded-t-xl"
+        />
+        <div className="px-4 py-3 w-72">
+          <span className="text-gray-400 mr-3 uppercase text-xs">
+            {item.brand}
+          </span>
+          <p className="text-lg font-bold text-black truncate block capitalize">
+            {item.title}
+          </p>
+          <div className="flex items-center">
+            <p className="text-lg font-semibold text-black cursor-auto my-3">
+              &#8356;{item.newPrice ? item.newPrice : item.price}
             </p>
-            <div className="flex items-center">
-              <p className="text-lg font-semibold text-black cursor-auto my-3">
-                &#8356;{item.newPrice ? item.newPrice : item.price}
-              </p>
-              {item.newPrice ? (
-                <del>
-                  <p className="text-sm text-gray-600 cursor-auto ml-2">
-                    &#8356; {item.price}
-                  </p>
-                </del>
-              ) : null}
-              <div className="ml-auto">
-                <i
-                  className="fa fa-shopping-bag text-lg text-[#333]"
-                  aria-hidden="true"
-                ></i>
-              </div>
+            {item.newPrice ? (
+              <del>
+                <p className="text-sm text-gray-600 cursor-auto ml-2">
+                  &#8356; {item.price}
+                </p>
+              </del>
+            ) : null}
+            <div className="ml-auto">
+              <i
+                className="fa fa-shopping-bag text-lg text-[#333]"
+                aria-hidden="true"
+              ></i>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     );
   };

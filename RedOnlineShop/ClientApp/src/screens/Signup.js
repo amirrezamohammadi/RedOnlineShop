@@ -30,10 +30,29 @@ const Signup = () => {
     },
 
     onSuccess: (data) => {
-      alert("Your account Created!");
-      navigate("../login");
+      //alert("Your account Created!");
+      //navigate("../login");
+      navigate("/message", {
+        state: {
+          type: "success",
+          text: "Your account has been successfully created!",
+          to: "/login",
+          linkText: "Go To Login",
+        },
+      });
     },
-    onError: () => console.log("Error!"),
+    onError: (error) => {
+      //console.log(error);
+      navigate("/message", {
+        state: {
+          type: "danger",
+          text:
+            error.response.status === 409
+              ? "This Email address is Exist ! Please Try Another One."
+              : "Something went wrong !",
+        },
+      });
+    },
   });
 
   const onChange = (event) => {

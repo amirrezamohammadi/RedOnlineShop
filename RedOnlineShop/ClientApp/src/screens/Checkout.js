@@ -85,6 +85,11 @@ const Checkout = () => {
 
   const onSubmit = (event) => {
     var postData = {
+      userDetails: {
+        firstName: order.firstName,
+        lastName: order.lastName,
+        email: order.email,
+      },
       orderItem: {
         userRef: order.userRef,
         createdDate: getTodayDate(),

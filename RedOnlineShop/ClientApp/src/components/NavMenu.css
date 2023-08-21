@@ -4,6 +4,12 @@
   word-break: break-all;
 }
 
+.red-icon-style{
+  color: #FF3333;
+  font-family: 'Dancing Script';
+  font-size: 22px;
+}
+
 html {
   font-size: 14px;
 }

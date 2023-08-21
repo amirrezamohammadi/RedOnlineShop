@@ -11,7 +11,7 @@ public partial class OrderDetail
 
     public int? Amount { get; set; }
 
-    public string? Size { get; set; }
+    public string Size { get; set; } = null!;
 
     public virtual Order Order { get; set; } = null!;
 

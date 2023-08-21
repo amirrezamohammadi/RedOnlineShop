@@ -129,7 +129,11 @@ namespace RedOnlineShop.Controllers
             {
                 return Problem("Entity set 'OnlineShopContext.Users'  is null.");
             }
-           
+
+            if (UserExists(SignupUser.Email))
+            {
+                return Conflict();
+            }
 
             _context.Users.Add(SignupUser);
             try
@@ -138,7 +142,7 @@ namespace RedOnlineShop.Controllers
             }
             catch (DbUpdateException)
             {
-                if (UserExists(SignupUser.Id))
+                if (UserExists(SignupUser.Email))
                 {
                     return Conflict();
                 }
@@ -148,7 +152,7 @@ namespace RedOnlineShop.Controllers
                 }
             }
 
-            Send(SignupUser.Email);
+            SendEmail(SignupUser.Email,SignupUser.FirstName);
             return CreatedAtAction("GetUser", new { id = SignupUser.Id }, SignupUser);
         }
 
@@ -172,10 +176,11 @@ namespace RedOnlineShop.Controllers
         //    return NoContent();
         //}
 
-        private bool UserExists(int id)
+        private bool UserExists(string email)
         {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.Email == email)).GetValueOrDefault();
         }
+
         static string ComputeHash(string s)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -185,19 +190,19 @@ namespace RedOnlineShop.Controllers
             }
         }
 
-        static void Send(string to)
+        static void SendEmail(string to,string username)
         {
             var emailSetting = new EmailSetting();
             var builder = WebApplication.CreateBuilder();
             builder.Configuration.GetSection("EmailSetting").Bind(emailSetting);
-
-
+            string emailContent = "<div style=\"width: 500px\">\n      <img\n        src=\"https://red-island-050d4dd10.3.azurestaticapps.net/images/RedLogo.png\"\n        alt=\"logo\"\n        width=\"40px\"\n      />\n      <h3 style=\"font-family: sans-serif\">Welcome to Red Shop</h3>\n      <h3 style=\"font-family: sans-serif\">Your Account has been Created!</h3>\n      <p style=\"font-family: sans-serif; text-align: justify\">\n        Dear {0}, We're excited to welcome you to\n        <strong style=\"color: #ff3333\">Red</strong>! Your account has been\n        successfully created, and we're delighted to have you join our online\n        shopping community.\n      </p>\n      <p style=\"font-family: sans-serif; text-align: justify\">\n        To start shopping, simply log in using your username and the password\n        you set up during the registration process. Should you ever forget your\n        password, don't worry! You can reset it by clicking the \"Forgot\n        Password\" link on the login page.\n      </p>\n      <p style=\"font-family: sans-serif; text-align: justify\">\n        Thank you for choosing <strong style=\"color: #ff3333\">Red</strong>.\n        We're committed to providing you with a seamless shopping experience and\n        can't wait to serve you.\n      </p>\n      <p style=\"font-family: sans-serif; text-align: justify; margin-top: 40px\">\n        Happy shopping!\n      </p>\n      <p style=\"font-family: sans-serif; text-align: justify\">Best regards</p>\n      <p style=\"font-family: sans-serif; text-align: justify\">\n        <strong style=\"color: #ff3333\">Red</strong> Shop Team\n      </p>\n    </div>";
+            string content = string.Format(emailContent, username);
             // create email message
             var message= new MimeMessage();
             message.From.Add(MailboxAddress.Parse(emailSetting.Email));
             message.To.Add(MailboxAddress.Parse(to));
             message.Subject = "Red Shop Account";
-            message.Body = new TextPart(TextFormat.Plain) { Text = "Welcome to the RedShop! Your account created successfully" };
+            message.Body = new TextPart(TextFormat.Html) { Text = content };
 
             // send email
             using (var client = new SmtpClient())

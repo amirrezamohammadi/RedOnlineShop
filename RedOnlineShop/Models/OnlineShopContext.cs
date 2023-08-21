@@ -68,16 +68,16 @@ public partial class OnlineShopContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => new { e.OrderId, e.ProductId })
+            entity.HasKey(e => new { e.OrderId, e.ProductId, e.Size })
                 .HasName("PRIMARY")
-                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
 
             entity.HasIndex(e => e.ProductId, "ProductId");
 
             entity.Property(e => e.OrderId).HasColumnType("int(11)");
             entity.Property(e => e.ProductId).HasColumnType("int(11)");
-            entity.Property(e => e.Amount).HasColumnType("int(11)");
             entity.Property(e => e.Size).HasMaxLength(10);
+            entity.Property(e => e.Amount).HasColumnType("int(11)");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)

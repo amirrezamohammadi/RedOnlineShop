@@ -1,23 +1,22 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import { api } from '../utils/api';
+import { api } from "../utils/api";
 
 const useAuth = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const login = async data => {
+  const login = async (data) => {
     localStorage.setItem("accessToken", data.id);
     localStorage.setItem("firstName", data.firstName);
     api.setAccessToken(data.id);
-
   };
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("firstName");
     api.setAccessToken(null);
-    navigate('/');
-    navigate(0)
+    navigate("/");
+    navigate(0);
   };
 
   return {
@@ -26,4 +25,4 @@ const useAuth = () => {
   };
 };
 
-export {useAuth};
+export { useAuth };
