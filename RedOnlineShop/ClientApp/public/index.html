@@ -36,6 +36,20 @@
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
+    <script>
+      function myMap() {
+        var mapProp = {
+          center: new google.maps.LatLng(51.508742, -0.12085),
+          zoom: 5,
+        };
+        var map = new google.maps.Map(
+          document.getElementById("googleMap"),
+          mapProp
+        );
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACVenkiG6_XbO77R3yRO0tHvlH2Q7DDbE&callback=myMap"></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
